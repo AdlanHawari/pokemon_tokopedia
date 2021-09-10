@@ -3,17 +3,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ImageContext } from '../ImageContext';
 import MyPokemonList from '../pages/MyPokemonList';
 import { ACTIONS, PokemonContext } from '../PokemonContext';
+import Cancel from './Cancel';
+import FailNick from './FailNick';
 
-const FormWrapper = styled.form`
-        overflow: hidden;
-        padding: 0 0 32px;
-        margin: 48px auto 0;
-        width: 300px;
-        font-family: Quicksand, arial, sans-serif;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
-        border-radius: 5px;
-        opacity: 1;
-    `;
+
 
     const CardFieldset = styled.fieldset`
         position: relative;
@@ -21,27 +14,34 @@ const FormWrapper = styled.form`
         margin: 0;
         border: 0;
 
+        display: flex;
+        align-items: center;
+
         & + & {
-        margin-top: 24px;
+        margin-top: 1.5rem;
         }
 
-        &:nth-last-of-type(2) {
-        margin-top: 32px;
-        }
+        /* &:nth-last-of-type(2) {
+         margin-top: 1rem; 
+        } */
 
-        &:last-of-type {
+        /* &:last-of-type {
         text-align: center;
-        }
+        } */
     `;
 
     const CardInput = styled.input`
-        padding: 7px 0;
+        padding: 0.75rem 1rem;
+        margin: 0 1rem;
         width: 100%;
+        /* width: 90%; */
         font-family: inherit;
-        font-size: 14px;
+        /* font-size: 14px; */
+        font-size: 1.2rem;
         border-top: 0;
         border-right: 0;
         border-bottom: 1px solid #ddd;
+        border-radius: 0.4rem;
         border-left: 0;
         transition: border-bottom-color 0.25s ease-in;
 
@@ -61,34 +61,110 @@ const FormWrapper = styled.form`
         width: 100%;
     `;
 
-    const CardButton = styled.button`
+    const SaveButton = styled.button`
         display: block;
         width: 100%;
-        padding: 12px 0;
+        padding: 1rem 0;
+        margin: 0 1rem;
         font-family: inherit;
         font-size: 14px;
         font-weight: 700;
         color: #fff;
-        background-color: #e5195f;
+        /* background-color: #e5195f; */
+        background-color: #3094E7; 
         border: 0;
         border-radius: 35px;
         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08);
         cursor: pointer;
-        transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
+        /* transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1); */
 
         &:hover {
         box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
-        transform: translate(0, -5px);
+        /* transform: translate(0, -5px); */
+        }
+    `;
+
+    const CancelButton = styled.button`
+        display: block;
+        width: 100%;
+        padding: 1rem 0;
+        margin: 0 1rem;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        color: #3094E7;
+        background-color: white;
+        border: 0.2rem solid #3094E7;
+        border-radius: 35px;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08);
+        cursor: pointer;
+        /* transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1); */
+
+        &:hover {
+        box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
+        /* transform: translate(0, -5px); */
         }
     `;
 
 const StyledA = styled.div`
-        position: block;
-        /* top: 20rem; */
+        /* position: block; */
+        position: fixed;
+        /* z-index: 4; */
+        border: 2px solid black;
+        padding: 1rem 0;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        /* background-color: rgba(0, 0, 0, .6); */
+        background-color: yellow;
     `;
 
+const PokemonImg = styled.img`
+height: 8rem;
+/* background-color: green; */
+/* width: 8rem; */
+display: block;
+margin-left: auto;
+margin-right: auto;
+`
+
+const PokeName = styled.p`
+    text-transform: capitalize;
+    margin-right: 0.4rem;
+`
+
+const FirstLine = styled.div`
+    display: flex;
+    /* justify-items:end; */
+    /* background-color: red; */
+    /* text-align:; */
+    font-weight: bold;
+    font-size: larger;
+    /* padding: 0; */
+    color: #333333;
+    
+`
+
+const TextWrapper= styled.div`
+    display: flex;
+    flex-direction: column;
+    /* justify-items: center; */
+    /* justify-content: space-between; */
+    /* background-color: greenyellow; */
+    align-items: center;
+    font-size: large;
+    /* font-family: ; */
+    /* font-family: 'Pokemon Solid', sans-serif; */
+    font-family: sans-serif;
+    padding-bottom: 1rem;                           
+`
+const SecondLine = styled.div`
+    color: #666666;
+`
+
 // export default function CatchForm({id, pokemon, url}) {
-export default function CatchForm({id, pokemon}) {
+export default function CatchForm({id, pokemon, setsuccess}) {
     const {imageUrl} = useContext(ImageContext);
     const {myPokemon, dispatch} = useContext(PokemonContext);
     const [nickname, setnickname] = useState('')
@@ -102,6 +178,9 @@ export default function CatchForm({id, pokemon}) {
 
     // var existingNick;
     const [existingNick, setexistingNick] = useState()
+    const [cancelState, setcancelState] = useState(false)
+    const [failNick, setfailNick] = useState()
+    const [msg, setMsg] = useState('')
 
     const handleChange = (e) => {
         
@@ -109,30 +188,16 @@ export default function CatchForm({id, pokemon}) {
        setnewPokemon({...newPokemon, nickname:e.target.value});
         
     };
+
+    const cancelCatch = (e)=>{
+        // setsuccess(false)
+        setcancelState(true)
+    }
     
+    // let msg;
     const handleClick = (e) => {
         
-        // setarrayPokemon([...arrayPokemon,newPokemon]);
-        // setmyPokemon({...myPokemon, myPokemonList : arrayPokemon});
-        // setmyPokemon({...myPokemon, count : myPokemon.count+1 })
-        // setmyPokemon(prevMyPokemon =>({
-        //     [...prevMyPokemon.myPokemonList,]
-        // }))
-        // setmyPokemon([...myPokemon.myPokemonList, newPokemon])
-        // if(existingNick.indexOf(newPokemon.nickname)>-1){
-            
-        //     console.log("already exist")
-        //     console.log(existingNick.indexOf(newPokemon.nickname))
-            
-        // }else{
-        //     console.log("belum ada")
-        //     console.log(existingNick.indexOf(newPokemon.nickname))
-        //     // dispatch({type: ACTIONS.APPEND, payload: {caughtPokemon: newPokemon}})
-        // }
-        // console.log("nick:",newPokemon.nickname);
-        // console.log("nick:",newPokemon.nickname);
-        // console.log("uhuy:",existingNick.filter(eachNick=>eachNick))
-        // console.log("ada?",existingNick.indexOf(newPokemon.nickname)>-1);
+       
 
         console.log("yg udah ada:", existingNick)
         console.log("nick yg dipilih:", newPokemon.nickname)
@@ -140,12 +205,21 @@ export default function CatchForm({id, pokemon}) {
         if(existingNick.indexOf(newPokemon.nickname) > -1){
             // console.log("makan")
             console.log("udah ada")
+            setfailNick(true);
+            setMsg("Nickname already exist")
             
+            
+        }
+        else if(newPokemon.nickname === ''){
+            console.log("ga boleh kosong")
+            setfailNick(true);
+            setMsg(`Please give the ${pokemon} a nickname`)
         }
         else{
             // console.log("berak")
             console.log("belum ada")
             dispatch({type: ACTIONS.APPEND, payload: {caughtPokemon: newPokemon}})
+            // setsuccess(false)
             
         }
         // if(existingNick.indexOf(newPokemon.nickname < 0)){
@@ -186,22 +260,41 @@ export default function CatchForm({id, pokemon}) {
             
             
                 {/* // <StyledCatchForm> */}
-                {myPokemon.filter(selectedPokemon => selectedPokemon.pokemon === pokemon).map((filteredPokemon,index) => (
+                <PokemonImg src={imageUrl.artwork} alt="" />
+
+                <TextWrapper>
+                    <FirstLine>
+                        <PokeName>{pokemon}</PokeName><p> is caught!</p>
+                    </FirstLine>
+                    
+                    <SecondLine>Give a nickname to our new friend</SecondLine>
+                </TextWrapper>
+                {/* {myPokemon.filter(selectedPokemon => selectedPokemon.pokemon === pokemon).map((filteredPokemon,index) => (
                     <div key={index}>{filteredPokemon.nickname}</div>
 
-                ))
-                
-
-                }
+                ))} */}
                 <CardFieldset>
                     <CardInput placeholder="Nickname" type="text" required value={newPokemon.nickname} onChange={handleChange}/>
                 </CardFieldset>
 
                 <CardFieldset>
-                    <CardButton onClick={handleClick} type="button">Save</CardButton>
+                    
+                    <CancelButton onClick={cancelCatch} type="button">Cancel</CancelButton>
+                    <SaveButton onClick={handleClick} type="button">Save</SaveButton>
+                    
                 </CardFieldset>
 
                 {/* // </StyledCatchForm> */}
+
+                {cancelState &&
+                    <Cancel setsuccess={setsuccess} setcancelState={setcancelState}/>
+                }
+
+                {failNick &&
+                <FailNick setfailNick={setfailNick} msg={msg}/>
+                }
+
+
 
                 
             

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Hamburger.css'
-import { NAV_ACTIONS } from './Navbar'
+import { NAV_ACTIONS } from './Navbardeprec'
 
 export default function Hamburger({state, dispatch}) {
     // const [toggle, setToggle] = useState(false)

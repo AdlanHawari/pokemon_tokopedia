@@ -46,9 +46,6 @@ export const GET_DETAILS = gql`
             }
         
         }
-        sprites {
-            front_default
-        }
         stats {
             base_stat
             effort
