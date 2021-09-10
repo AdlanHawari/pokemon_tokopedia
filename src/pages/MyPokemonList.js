@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart } from 'recharts'
 import CatchForm from '../components/CatchForm';
 import PokemonCard from '../components/PokemonCard';
@@ -17,6 +17,7 @@ const ListsContainer = styled.div`
 
 export default function MyPokemonList() {
   const {myPokemon, dispatch} = useContext(PokemonContext);
+  const [delState, setDelState] = useState(false)
 
   
   useEffect(() => {
@@ -28,6 +29,10 @@ export default function MyPokemonList() {
     console.log(myPokemon);
     // console.log("reverse:",myPokemonLists);
   }, [])
+  // useEffect(() => {
+  //   console.log("statedell: ",selectedDel)
+    
+  // }, [selectedDel])
 
   return (
       <div>
@@ -40,11 +45,13 @@ export default function MyPokemonList() {
             <MyPokemonCard
               key={index}
               pokemon={pokemon}
-              index = {index}/>
+              index = {index}
+              // setselectedDel={selectedDel}
+              />
               )} 
         </ListsContainer>
         
-        // <div>KOSOONGG</div>
+        
         }
         
           {/* {myPokemon && */}
@@ -54,8 +61,11 @@ export default function MyPokemonList() {
                 pokemon={pokemon}
                 index = {index}/> */}
           {/* )} */}
-            
-            
+
+      {/* {delState &&
+        <DeleteModal setDelState={setDelState}/>
+      }  */}
+      
         
        
     

@@ -96,7 +96,7 @@ export default function Save({setsavedState, nickname, pokemon}) {
                         // setsavedState(false)
                         window.location.reload()
                         }>Back to detail</Button>
-                    <ButtonLink exact to="/">Go to Pokemon List</ButtonLink>
+                    <ButtonLink exact='true' to="/">Go to Pokemon List</ButtonLink>
                     
                     <ButtonLink to="/my_pokemon_list">See My Pokemon</ButtonLink>
                 </Contains>
