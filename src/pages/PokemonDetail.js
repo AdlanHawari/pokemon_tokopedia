@@ -12,6 +12,8 @@ import pokeball from '../images/pokeball.png'
 import { TYPE_COLOR } from '../components/colors/Colors';
 import Catching from '../components/Catching';
 import FailCatch from '../components/FailCatch';
+import { removeDash } from '../components/RemoveDash';
+import LoadingUI from '../components/LoadingUI';
 
 
 const PokemonImg = styled.img`
@@ -26,6 +28,10 @@ const PokemonImg = styled.img`
 
     const DetailWrapper = styled.div`
         padding: 6rem 1rem 1rem;
+        @media (min-width: 768px) {
+            padding: 6rem 10rem;
+        }
+        font-family: 'Fira Sans', sans-serif;
     `
 
     const TypeWrapper = styled.div`
@@ -59,6 +65,10 @@ const PokemonImg = styled.img`
     `
 const PokeballImg = styled.img`
     height: 4rem;
+    /* background-color: white; */
+    padding: .3rem;
+    border-radius: 100%;
+    border: 0.1rem solid #D7D7D7;
 `
 
 const NamePokemon = styled.p`
@@ -67,6 +77,20 @@ const NamePokemon = styled.p`
     text-transform: capitalize;
     font-size: larger;
     text-align: center;
+`
+
+const BaseStatTitle = styled.p`
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    text-transform: capitalize;
+    font-size: larger;
+    text-align: center;
+    
+    @media (min-width: 768px) {
+            display: none;
+            /* display: flex; */
+        }
+
 `
 
 const AbilityWrapper = styled.div`
@@ -98,19 +122,79 @@ const HiddenAbility = styled.div`
     color: gray;
     margin-left: 0.2rem;
 `
-const Asal = styled.div`
-    position: fixed;
-    background-color: black;
-    height: 100vh;
-    width: 100%;
-    top:0;
-    left: 0;
-`
 
 const PokeBallContainer = styled.div`
     position: fixed;
     bottom: 2rem;
     right: 2rem;
+    z-index: 0;
+`
+
+const MovesContainer =styled.div`
+    /* background-color: salmon; */
+    overflow: hidden;
+    padding: 01rem;
+    display: grid;
+    grid-template-columns: auto auto;
+    
+    grid-gap: 0.5rem;
+`
+const MoveItem= styled.div`
+    background-color: brown;
+    padding: .75rem;
+    border-radius: 1rem;
+    border: 0.2rem outset gray;
+    font-size: smaller;
+    color:white;
+`
+
+const StatsVal = styled.p`
+    font-size: larger;
+`
+
+const StatsValWrapper = styled.div`
+/* position: static; */
+    display: flex;
+    /* flex-shrink: 0; */
+    /* flex-direction: row; */
+    justify-items: center;
+    /* flex-wrap: wrap; */
+    align-items: center;
+    /* background-color: red; */
+    p{
+        margin-right: 1rem;
+        /* background-color: blue; */
+    }
+`
+
+const StatsGroupWrapper =styled.div`
+    /* background-color: blueviolet; */
+    padding: 3rem 0%;
+`
+
+const BaseStatsWrapper = styled.div`
+    /* padding: 3rem 0%; */
+    width:60%;
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color: gray; */
+    
+    @media (min-width: 768px) {
+        padding: 3rem 0%;
+        
+        /* width: 20%; */
+        }
+`
+
+const StatsBaseStatWrapper = styled.div`
+        display: block;
+        /* background-color: red; */
+        @media (min-width: 768px) {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10rem;
+        }
 `
 
 export default function PokemonDetail() {
@@ -189,14 +273,14 @@ export default function PokemonDetail() {
     //     generate_catchRate();
     //     console.log("ketangkep:",success)
     // }
-    function removeDash(obj){
-        return (
-            obj.toLowerCase()
-            .split('-')
-            .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-            .join(' ')
-        )
-    }
+    // function removeDash(obj){
+    //     return (
+    //         obj.toLowerCase()
+    //         .split('-')
+    //         .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+    //         .join(' ')
+    //     )
+    // }
 
     if(loading){
         console.log("loading")
@@ -218,62 +302,91 @@ export default function PokemonDetail() {
                     <PokemonImg src={imageUrl.artwork} alt="" />
                     
                     <NamePokemon>{pokemon.name}</NamePokemon>
-                    <TypeWrapper>
-                            <p>Type: </p>
-            
-                        
-                            {pokemon.types.map((type,index)=>(
-                                <TypeContainer key={index}
-                                style={{
-                                    backgroundColor: 
-                                    `${TYPE_COLOR[type.type.name]}`
-                                }}
-                                
-                                >{type.type.name}</TypeContainer>
-                            ))}
+                    <StatsBaseStatWrapper>
+                        <StatsGroupWrapper>
 
                         
-                        
-
-                    </TypeWrapper>
-                    <AbilityWrapper>
-                        <p>Ability: </p>
-                        <div>
-                            {pokemon.abilities.map((ability,index)=>(
-                                <div
-                                    key={index}>
-                                        <AbilityContainer
-                                        style={ability.is_hidden?
-                                            {fontSize: '0.8rem'}
-                                            :
-                                            {}}
-                                        >
-                                            {removeDash(ability.ability.name)
-                                            
-                                             }
-                                            {ability.is_hidden &&
-                                            <HiddenAbility>
-                                                (hidden ability)
-                                            </HiddenAbility>
-                                            }
-                                        </AbilityContainer>
-
-                                </div>
-                                
-                            ))}
-                        </div>
-
-                    </AbilityWrapper>
+                            <TypeWrapper>
+                                    <p>Type: </p>
                     
-                    <p>Base Exp. {pokemon.base_experience}</p>
-                    <p>Height: {(pokemon.height)/10} m</p>
-                    <p>Weight: {(pokemon.weight)/10} kg</p>
-                    <p>Base Stats</p>
-                    <Stats pokemonStats = {pokemon.stats}/>
-                    <p>Moves</p>
-                    <div className="">
+                                
+                                    {pokemon.types.map((type,index)=>(
+                                        <TypeContainer key={index}
+                                        style={{
+                                            backgroundColor: 
+                                            `${TYPE_COLOR[type.type.name]}`
+                                        }}
+                                        
+                                        >{type.type.name}</TypeContainer>
+                                    ))}
+
+                                
+                                
+
+                            </TypeWrapper>
+                            <AbilityWrapper>
+                                <p>Ability: </p>
+                                <div>
+                                    {pokemon.abilities.map((ability,index)=>(
+                                        <div
+                                            key={index}>
+                                                <AbilityContainer
+                                                style={ability.is_hidden?
+                                                    {fontSize: '0.8rem'}
+                                                    :
+                                                    {}}
+                                                >
+                                                    {removeDash(ability.ability.name)
+                                                    
+                                                    }
+                                                    {ability.is_hidden &&
+                                                    <HiddenAbility>
+                                                        (hidden ability)
+                                                    </HiddenAbility>
+                                                    }
+                                                </AbilityContainer>
+
+                                        </div>
+                                        
+                                    ))}
+                                </div>
+
+                            </AbilityWrapper>
+                            
+                            <StatsValWrapper>
+                                <p>Base Exp. </p>
+                                <StatsVal>
+                                    {pokemon.base_experience}
+                                </StatsVal>
+                            </StatsValWrapper>
+
+                            <StatsValWrapper>
+                                <p>Height: </p>
+                                <StatsVal>
+                                    {(pokemon.height)/10} m
+                                </StatsVal>
+                            </StatsValWrapper>
+                            
+                            <StatsValWrapper>
+                                <p>Weight: </p>
+                                <StatsVal>
+                                {(pokemon.weight)/10} kg
+                                </StatsVal>    
+                            </StatsValWrapper>
+                        </StatsGroupWrapper>
+
+                        <BaseStatsWrapper>
+                            <BaseStatTitle>Base Stats</BaseStatTitle>
+                            {/* <p></p> */}
+                            <Stats pokemonStats = {pokemon.stats}/>
+
+                        </BaseStatsWrapper>
+                    </StatsBaseStatWrapper>
+                    <StatsGroupWrapper>
+                    <NamePokemon>Moves</NamePokemon>
+                    <MovesContainer>
                         {pokemon.moves.map((move,index) =>(
-                            <div key={index}>
+                            <MoveItem key={index}>
                                 {/* {index<3 &&
                                 <div>{move.move.name}</div>
                                 } */}
@@ -281,9 +394,10 @@ export default function PokemonDetail() {
                                 
                                 }
                                 
-                            </div>
+                            </MoveItem>
                         ))}
-                    </div>
+                    </MovesContainer>
+                    </StatsGroupWrapper>
 
 
                     <PokeBallContainer>
@@ -298,9 +412,9 @@ export default function PokemonDetail() {
                 
             ):
             (
-                <div>
-                    Loading. . .
-                </div>
+                <LoadingUI/>
+                    
+                // {/* </LoadingUI> */}
             )
             }
 

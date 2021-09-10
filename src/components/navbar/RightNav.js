@@ -17,10 +17,13 @@ const Ul = styled.div`
   list-style: none;
   display: flex;
   flex-flow: row nowrap;
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: bold;
+  font-size: larger;
   li {
     padding: 18px 10px;
   }
-  @media (max-width: 768px) {
+  /* @media (max-width: 768px) { */
     flex-flow: column nowrap;
     /* background-color: #0D2538; */
     background-color: rgba(0, 0, 0, .6);
@@ -46,37 +49,59 @@ const Ul = styled.div`
     p{
         color: red;
     }
-  }
+  /* } */
 `;
 
 const LinkContainer = styled.div`
+/* display: flex;
+background-color: gold; */
+/* padding: 0 2rem ; */
+
+
+
+/* @media (max-width: 768px) { */
   position: relative;
+  display: block;
   background-color: #0D2538;
   height: 50%;
+  padding: 2rem 0;
+/* } */
+  
 `
 
 const StyledLink = styled(NavLink)`
- color: red;
+
+/* padding: 1rem 2rem; */
+/* margin: 1rem 0; */
+/* @media (max-width: 768px) { */
+
+ color: #03C9EE;
  padding: 1rem 2rem;
- /* background-color: indigo; */
- margin: 0;
+ margin: 1rem 0;
  position: relative;
- /* border-left: 0.5rem solid red; */
  display: flex;
- /* opacity: 1; */
+ opacity: 1;
+
+/* } */
+ /* color: #03C9EE;
+ padding: 1rem 2rem;
+ margin: 1rem 0;
+ position: relative;
+ display: flex;
+ opacity: 1; */
 
  &.active{
   color: white;
   border-left: 2px solid white;
   border-radius: 0.5rem;
-  background-color: indigo;
+  background-color: #03C9EE;
  }
- div{
+ /* div{
    background-color: red;
    width: 1rem;
    height: 100%;
 
- }
+ } */
 `
 
 const RightNav = ({ open, setOpen }) => {

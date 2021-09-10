@@ -42,15 +42,18 @@ const Contains = styled.div`
     padding: 0.6rem 0;
     font-size: large;
     color: saddlebrown;
-    font-family: fantasy;
+    font-family: 'Fira Sans', sans-serif;
 `
 
 const GifPokeballimg = styled.img`
     height: 4rem;
     display: block;
-    /* margin-left: auto;
-    margin-right: auto; */
-    /* width: 4rem; */
+    @media (min-width: 768px) {
+        margin-left: auto;
+        margin-right: auto; 
+        /* width: 4rem; */
+        }
+    
 `
 
 export default function Catching({setsuccess,setCatching,setFailState, pokemon}) {

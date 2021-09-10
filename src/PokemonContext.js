@@ -12,7 +12,7 @@ function reducer( myPokemon,action){
         case ACTIONS.APPEND:
             return [...myPokemon, action.payload.caughtPokemon]
         case ACTIONS.REMOVE:
-            return myPokemon.filter((pokemon,index) => index != action.payload.index)
+            return myPokemon.slice(0).reverse().filter((pokemon,index) => index != action.payload.index)
             
         default:
             return myPokemon

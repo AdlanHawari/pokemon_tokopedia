@@ -9,21 +9,32 @@ const Nav = styled.nav`
     /* height: 55px; */
     height: 4rem;
     border-bottom: 2px solid #f1f1f1;
-    /* padding: 0 20px; */
-    /* padding-left: 1rem; */
-    
-    /* padding: 1rem 0; */
+    z-index: 2;
     display: flex;
     justify-content: space-between;
-    background-color: greenyellow;
+    background-color: #0D2538;
     align-items: center;
-    .logo {
-        padding: 0 2rem ;
+    @media (max-width: 768px) {
+      
     }
+    /* .logo {
+        padding: 0 2rem ;
+    } */
 
     /* .burger{
         padding: 0 2rem ;
     } */
+`
+const StyledTitle = styled.div`
+  font-family: 'Fira Sans', sans-serif;
+  font-size: larger;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 2px black;
+  padding: 0 2rem ;
+  @media (max-width: 768px) {
+
+  }
 `
 
 const Navbar = () => {
@@ -46,10 +57,10 @@ const Navbar = () => {
     }, [pathname]);
   return (
     <Nav>
-      <div className="logo">
+      <StyledTitle className="logo">
         {/* Nav Bar */}
         {title}
-      </div>
+      </StyledTitle>
       <Burger/>
     </Nav>
   )

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ACTIONS, PokemonContext } from '../PokemonContext';
 
@@ -27,6 +27,11 @@ export default function MyPokemonCard({pokemon, index}) {
         text-align: center;
 
     `;
+
+    useEffect(() => {
+        console.log('card:',pokemon)
+        console.log('ind:',index)
+    }, [])
 
     return (
         <CardWrapper 

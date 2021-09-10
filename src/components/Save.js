@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom';
 
-const FailNickWrapper = styled.div`
+const SaveNickWrapper = styled.div`
         /* position: block; */
         position: fixed;
         /* z-index: 4; */
@@ -12,20 +13,20 @@ const FailNickWrapper = styled.div`
         top: 0;
         left: 0;
         background-color: rgba(0, 0, 0, .6);
-        font-family: 'Fira Sans', sans-serif;
         /* background-color: white; */
     `;
 
-    const FailNickContainer = styled.div`
+    const SaveNickContainer = styled.div`
         position: absolute;
         background-color: white;
         border-radius: 2rem;
         
         display: block;
         /* height: 12rem; */
-        width: 80%;
+        width: 90%;
         @media (min-width: 768px) {
             width: 40%;
+            padding: 2rem 1rem;
         }
         height: max-content;
         padding: 1rem 0;
@@ -44,19 +45,22 @@ const TextContainer = styled.p`
 text-align: center;
 padding: 0.6rem 0;
 font-size: large;
-
+font-family: 'Fira Sans', sans-serif;
 `
 
 const Button = styled.button`
-        display: block;
+        display: flex;
         width: 100%;
         padding: 1rem 0;
-        /* margin: 0 1rem; */
+        margin: 1rem 0;
         font-family: inherit;
         font-size: 14px;
         font-weight: 700;
         color: #fff;
+        justify-content: center;
+        text-decoration: none;
         /* background-color: #e5195f; */
+        /* margin:0 auto; */
         background-color: #3094E7; 
         border: 0;
         border-radius: 35px;
@@ -70,21 +74,37 @@ const Button = styled.button`
         }
     `;
 
-export default function FailNick({setfailNick, msg}) {
-    return (
-        <FailNickWrapper>
-            <FailNickContainer>
-                <Contains>
-                    <TextContainer>{msg}</TextContainer>
-                    
-                    <Button onClick={(e)=>setfailNick(false)}>Back</Button>
 
+
+ const ButtonLink = Button.withComponent(Link)
+
+export default function Save({setsavedState, nickname, pokemon}) {
+    useEffect(() => {
+        console.log("nickname:",nickname)
+        console.log("pokemon:",pokemon)
+    }, [])
+    return (
+        <SaveNickWrapper>
+            <SaveNickContainer>
+                <Contains>
+                    <TextContainer>
+                        Success giving a name. <strong>{nickname}</strong>  is a good name for a <strong>{pokemon}</strong>
+                        
+                    </TextContainer>
+                    
+                    <Button onClick={ (e)=>
+                        // setsavedState(false)
+                        window.location.reload()
+                        }>Back to detail</Button>
+                    <ButtonLink exact to="/">Go to Pokemon List</ButtonLink>
+                    
+                    <ButtonLink to="/my_pokemon_list">See My Pokemon</ButtonLink>
                 </Contains>
                 
-            </FailNickContainer>
+            </SaveNickContainer>
             
             
             
-        </FailNickWrapper>
+        </SaveNickWrapper>
     )
 }

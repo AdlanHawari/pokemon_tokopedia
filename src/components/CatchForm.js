@@ -5,6 +5,7 @@ import MyPokemonList from '../pages/MyPokemonList';
 import { ACTIONS, PokemonContext } from '../PokemonContext';
 import Cancel from './Cancel';
 import FailNick from './FailNick';
+import Save from './Save';
 
 
 
@@ -110,14 +111,16 @@ const StyledA = styled.div`
         /* position: block; */
         position: fixed;
         /* z-index: 4; */
-        border: 2px solid black;
-        padding: 1rem 0;
+        /* border: 2px solid black; */
+        padding-top: 5rem;
+        
+        /* padding: 5rem 2rem; */
         width: 100%;
         height: 100vh;
         top: 0;
         left: 0;
         /* background-color: rgba(0, 0, 0, .6); */
-        background-color: yellow;
+        background-color: gold;
     `;
 
 const PokemonImg = styled.img`
@@ -180,6 +183,7 @@ export default function CatchForm({id, pokemon, setsuccess}) {
     const [existingNick, setexistingNick] = useState()
     const [cancelState, setcancelState] = useState(false)
     const [failNick, setfailNick] = useState()
+    const [savedState, setsavedState] = useState(false)
     const [msg, setMsg] = useState('')
 
     const handleChange = (e) => {
@@ -219,6 +223,7 @@ export default function CatchForm({id, pokemon, setsuccess}) {
             // console.log("berak")
             console.log("belum ada")
             dispatch({type: ACTIONS.APPEND, payload: {caughtPokemon: newPokemon}})
+            setsavedState(true)
             // setsuccess(false)
             
         }
@@ -292,6 +297,10 @@ export default function CatchForm({id, pokemon, setsuccess}) {
 
                 {failNick &&
                 <FailNick setfailNick={setfailNick} msg={msg}/>
+                }
+
+                {savedState &&
+                    <Save setsavedState={setsavedState} nickname={newPokemon.nickname} pokemon={newPokemon.pokemon}/>
                 }
 
 

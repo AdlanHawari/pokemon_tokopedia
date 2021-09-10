@@ -13,6 +13,7 @@ const CancelWrapper = styled.div`
         top: 0;
         left: 0;
         background-color: rgba(0, 0, 0, .6);
+        font-family: 'Fira Sans', sans-serif;
         /* background-color: white; */
     `;
 
@@ -41,7 +42,7 @@ display: block;
 width: 100%;
 padding: 1rem 0;
 margin: 0 1rem;
-font-family: inherit;
+/* font-family: inherit; */
 font-size: 14px;
 font-weight: 700;
 color: #fff;
@@ -64,7 +65,7 @@ display: block;
 width: 100%;
 padding: 1rem 0;
 margin: 0 1rem;
-font-family: inherit;
+/* font-family: inherit; */
 font-size: 14px;
 font-weight: 700;
 color: #3094E7;
@@ -86,7 +87,7 @@ const YesButton = styled.button`
         width: 100%;
         padding: 1rem 0;
         margin: 0 1rem;
-        font-family: inherit;
+        /* font-family: inherit; */
         font-size: 14px;
         font-weight: 700;
         color: #fff;
@@ -130,7 +131,7 @@ const TextContainer = styled.p`
     text-align: center;
     padding: 1rem 0;
     font-size: larger;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
 `
 
 export default function Cancel({setsuccess, setcancelState }) {

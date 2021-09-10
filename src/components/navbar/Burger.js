@@ -11,19 +11,19 @@ const StyledBurger = styled.div`
   /* right: 20px; */
   right: 0;
   z-index: 20;
-  display: none;
+  /* display: none; */
   padding-right: 2rem;
   /* background-color: red; */
-  @media (max-width: 768px) {
+  /* @media (max-width: 768px) { */
     display: flex;
     justify-content: space-around;
     flex-flow: column nowrap;
-  }
+  /* } */
   div {
     width: 2rem;
     height: 0.25rem;
-    /* background-color: ${({ open }) => open ? '#ccc' : '#333'}; */
-    background-color: ${({ open }) => open ? 'red' : '#333'};
+    
+    background-color: ${({ open }) => open ? '#03C9EE' : '#FFF'};
     border-radius: 10px;
     transform-origin: 1px;
     transition: all 0.3s linear;

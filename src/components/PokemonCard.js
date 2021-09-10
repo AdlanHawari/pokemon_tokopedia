@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { ImageContext } from '../ImageContext'
+import { removeDash } from './RemoveDash'
 
 export default function PokemonCard({pokemon}) {
 
@@ -20,15 +21,16 @@ export default function PokemonCard({pokemon}) {
         /* margin: 0.25rem; */
         /* width: 300px; */
         /* text-decoration: none; */
-        font-family: Quicksand, arial, sans-serif;
+        font-family: 'Fira Sans', sans-serif;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
         border-radius: 0.5rem;
         /* background-color: green; */
         border: 1px solid #ddd;
         text-align: center;
+        text-transform: capitalize;
 
         p{
-            color: red;
+            color: #323B44;
         }
 
     `;
@@ -60,7 +62,7 @@ export default function PokemonCard({pokemon}) {
             <p>{pokemon.id}</p>
             <PokemonImg src={pokemon.dreamworld} alt="" />
                 {/* <img src={pokemon.artwork} alt="" /> */}
-            <p>{pokemon.name}</p>
+            <p>{removeDash(pokemon.name)}</p>
             </Link>
             
             

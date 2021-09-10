@@ -12,6 +12,7 @@ const FailWrapper = styled.div`
         top: 0;
         left: 0;
         background-color: rgba(0, 0, 0, .6);
+        font-family: 'Fira Sans', sans-serif;
         /* background-color: white; */
     `;
 
@@ -23,6 +24,10 @@ const FailWrapper = styled.div`
         display: block;
         /* height: 12rem; */
         width: 90%;
+        @media (min-width: 768px) {
+            width: 40%;
+            padding: 1rem ;
+        }
         height: max-content;
         padding:  0;
         top: 50%;
@@ -39,7 +44,7 @@ const FailWrapper = styled.div`
         text-align: center;
         padding: 0.6rem 0;
         font-size: large;
-        font-family: serif;
+        /* font-family: serif; */
     `
 
     const Button = styled.button`
@@ -47,7 +52,7 @@ const FailWrapper = styled.div`
         width: 100%;
         padding: 1rem 0;
         /* margin: 0 1rem; */
-        font-family: inherit;
+        /* font-family: inherit; */
         font-size: 14px;
         font-weight: 700;
         color: #fff;
