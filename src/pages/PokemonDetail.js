@@ -234,11 +234,11 @@ export default function PokemonDetail() {
         // console.log("img:",pokemon.sprites.front_default)
     }, [data]);
 
-    // useEffect(() => {
-    //    console.log('catching:',catching)
-    //    console.log('succ:',success)
-    //    console.log('fail:',failState)
-    // }, [catching, success,failState])
+    useEffect(() => {
+       console.log('catching:',catching)
+       console.log('succ:',success)
+       console.log('fail:',failState)
+    }, [catching, success,failState])
 
     // let catch_rate;
     // let success = ;

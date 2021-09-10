@@ -78,7 +78,7 @@ const Button = styled.button`
 
  const ButtonLink = Button.withComponent(Link)
 
-export default function Save({setsavedState, nickname, pokemon}) {
+export default function Save({setsavedState, setsuccess, nickname, pokemon}) {
     useEffect(() => {
         console.log("nickname:",nickname)
         console.log("pokemon:",pokemon)
@@ -92,9 +92,12 @@ export default function Save({setsavedState, nickname, pokemon}) {
                         
                     </TextContainer>
                     
-                    <Button onClick={ (e)=>
-                        // setsavedState(false)
-                        window.location.reload()
+                    <Button onClick={ (e)=>{
+                        setsavedState(false)
+                        setsuccess(false)
+                    }
+                        
+                        // window.location.reload()
                         }>Back to detail</Button>
                     <ButtonLink exact='true' to="/">Go to Pokemon List</ButtonLink>
                     

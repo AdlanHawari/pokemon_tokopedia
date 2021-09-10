@@ -300,7 +300,7 @@ export default function CatchForm({id, pokemon, setsuccess}) {
                 }
 
                 {savedState &&
-                    <Save setsavedState={setsavedState} nickname={newPokemon.nickname} pokemon={newPokemon.pokemon}/>
+                    <Save setsavedState={setsavedState} setsuccess={setsuccess} nickname={newPokemon.nickname} pokemon={newPokemon.pokemon}/>
                 }
 
 
