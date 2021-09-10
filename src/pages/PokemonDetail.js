@@ -174,7 +174,7 @@ const StatsGroupWrapper =styled.div`
 
 const BaseStatsWrapper = styled.div`
     /* padding: 3rem 0%; */
-    width:60%;
+    width:100%;
     margin-left: auto;
     margin-right: auto;
     /* background-color: gray; */
@@ -182,7 +182,7 @@ const BaseStatsWrapper = styled.div`
     @media (min-width: 768px) {
         padding: 3rem 0%;
         
-        /* width: 20%; */
+        width: 70%;
         }
 `
 

@@ -8,7 +8,7 @@ const StyledRC = styled(RadarChart)`
 font-size: small;
 font-weight: bold;
 color: 0D2538;
-text-shadow: 2px 2px 4px #03C9EE;
+text-shadow: 2px 1px #03C9EE;
 text-transform: uppercase;
 z-index: -1;
 /* background-color: gold; */
